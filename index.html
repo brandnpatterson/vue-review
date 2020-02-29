@@ -6,15 +6,11 @@
   <title>Vue</title>
 </head>
 <body>
-  <div id="app">
-    <ol>
-      <todo-item
-        v-for="item in groceryList"
-        v-bind:todo="item"
-        v-bind:key="item.id"
-      ></todo-item>
-    </ol>
-  </div>
+  <ul id="v-for-object" class="demo">
+    <div v-for="(value, name, index) in object">
+      {{ index }}. {{ name }}: {{ value }}
+    </div>
+  </ul>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
     Vue.component('todo-item', {
@@ -23,13 +19,13 @@
     });
 
     new Vue({
-      el: '#app',
+      el: '#v-for-object',
       data: {
-        groceryList: [
-          { id: 0, text: 'Vegetables' },
-          { id: 1, text: 'Cheese' },
-          { id: 2, text: 'Whatever else humans are supposed to eat' }
-        ]
+        object: {
+          title: 'How to do lists in Vue',
+          author: 'Jane Doe',
+          publishedAt: '2016-04-10'
+        }
       }
     });
   </script>
