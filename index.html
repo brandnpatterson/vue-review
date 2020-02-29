@@ -7,36 +7,29 @@
 </head>
 <body>
   <div id="app">
-    <h1>{{ welcome }}</h1>
-    <input v-model="welcome" type="text" />
-    <span v-bind:title="message">
-      Hover your mouse over me for a few seconds
-      to see my dynamically bound title!
-    </span>
-    <span v-if="seen">Now you see me</span>
     <ol>
-      <li v-for="todo in todos">{{ todo.text }}</li>
+      <todo-item
+        v-for="item in groceryList"
+        v-bind:todo="item"
+        v-bind:key="item.id"
+      ></todo-item>
     </ol>
-    <button type="button" v-on:click="reverseMessage">Reverse</button>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
-    var app = new Vue({
+    Vue.component('todo-item', {
+      props: ['todo'],
+      template: '<li>{{ todo.text }}</li>'
+    });
+
+    new Vue({
       el: '#app',
       data: {
-        welcome: 'Hello Vue!',
-        message: 'You loaded this page on ' + new Date().toLocaleString(),
-        seen: true,
-        todos: [
-          { text: 'Learn JavaScript' },
-          { text: 'Learn Vue' },
-          { text: 'Build something awesome' }
+        groceryList: [
+          { id: 0, text: 'Vegetables' },
+          { id: 1, text: 'Cheese' },
+          { id: 2, text: 'Whatever else humans are supposed to eat' }
         ]
-      },
-      methods: {
-        reverseMessage: function () {
-          this.welcome = this.welcome.split('').reverse().join('');
-        }
       }
     });
   </script>
