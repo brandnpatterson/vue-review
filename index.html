@@ -3,18 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vue</title>
+  <title>Vuex</title>
 </head>
 <body>
   <div id="app">
     <h1>{{ welcome }}</h1>
+    <p>{{ message }}</p>
+    <p>{{ count }}</p>
+    <button type="button" @click="updateCount(10)">Update Count</button>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script>
-    var app = new Vue({
-      el: '#app',
-      data: {
-        welcome: 'Hello Vue!',
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vuex"></script>
+  <script type="text/javascript">
+    const store = new Vuex.Store({
+      state: {
+        message: "hello vuex",
+        count: 0
+      },
+      actions: {
+        increment: ({ commit }, payload) => {
+          commit("increment", payload);
+        }
+      },
+      getters: {
+        message(state) {
+          return state.message.toUpperCase();
+        },
+        count(state) {
+          return state.count;
+        }
+      },
+      mutations: {
+        increment(state, payload) {
+          return (state.count += payload);
+        }
+      }
+    });
+
+    new Vue({
+      el: "#app",
+      data() {
+        return {
+          welcome: "Hello World"
+        };
+      },
+      computed: {
+        message() {
+          return store.getters.message;
+        },
+        count() {
+          return store.getters.count;
+        }
+      },
+      methods: {
+        updateCount(payload) {
+          store.dispatch("increment", payload);
+        }
+      }
     });
   </script>
 </body>
