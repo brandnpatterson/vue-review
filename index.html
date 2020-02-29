@@ -22,7 +22,8 @@
           is="todo-item"
           v-for="(todo, index) in todos"
           v-bind:key="todo.id"
-          v-bind:title="todo.title"
+          v-bind:todo="todo"
+          v-on:toggle-completed="todo.completed = !todo.completed"
           v-on:remove="todos.splice(index, 1)"
         ></li>
       </ul>
@@ -31,13 +32,14 @@
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
     Vue.component('todo-item', {
-      template: '\
-        <li>\
-          {{ title }}\
-          <button v-on:click="$emit(\'remove\')">Remove</button>\
-        </li>\
-      ',
-      props: ['title']
+      template: `
+        <li style="list-style-type: none;">
+          <input type="checkbox" v-on:click="$emit('toggle-completed')" :checked="todo.completed" />
+          {{ todo.title }}
+          <button v-on:click="$emit('remove')">Remove</button>
+        </li>
+      `,
+      props: ['todo']
     });
 
     new Vue({
@@ -48,14 +50,17 @@
           {
             id: 1,
             title: 'Do the dishes',
+            completed: true
           },
           {
             id: 2,
             title: 'Take out the trash',
+            completed: false
           },
           {
             id: 3,
-            title: 'Mow the lawn'
+            title: 'Mow the lawn',
+            completed: false
           }
         ],
         nextTodoId: 4
@@ -64,7 +69,8 @@
       addNewItem: function () {
         this.todos.push({
           id: this.nextTodoId++,
-          title: this.newTodoText
+          title: this.newTodoText,
+          completed: false
         });
         this.newTodoText = ''
       }
