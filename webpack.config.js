@@ -7,7 +7,6 @@ module.exports = {
   devServer: {
     contentBase: 'public',
     hot: true,
-    historyApiFallback: true,
     overlay: true
   },
   entry: ['./src/app.js'],
