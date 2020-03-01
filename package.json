@@ -4,7 +4,8 @@
   "description": "Vue review",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode=production"
+    "build": "webpack --mode production",
+    "dev": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -17,11 +18,15 @@
     "url": "https://github.com/brandnpatterson/vue-review/issues"
   },
   "homepage": "https://github.com/brandnpatterson/vue-review#readme",
+  "dependencies": {
+    "vue": "^2.6.11"
+  },
   "devDependencies": {
-    "@babel/core": "^7.8.6",
-    "@babel/preset-env": "^7.8.6",
     "babel-loader": "^8.0.6",
+    "vue-loader": "^15.9.0",
+    "vue-template-compiler": "^2.6.11",
     "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   }
 }
