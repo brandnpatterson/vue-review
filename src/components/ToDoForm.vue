@@ -18,29 +18,38 @@
       </div>
       <div class="input-group">
         <ul>
-          <li v-for="(todo, index) in todos">{{ todo.text }}</li>
+          <ToDoItem
+            v-for="(todo, index) in todos"
+            :todo="todo"
+            :key="todo.id"
+          />
         </ul>
       </div>
     </div>
   </form>
 </template>
 <script>
+import ToDoItem from './ToDoItem.vue';
+
 export default {
+  components: {
+    ToDoItem
+  },
   data() {
     return {
-      newTodoText: '',
       todos: [
         {
           id: 1,
-          text: 'Feed the dog',
+          text: 'Go on a walk',
           completed: true
         },
         {
           id: 2,
-          text: 'Make my bed',
+          text: 'Take out the trash',
           completed: false
         }
       ],
+      newTodoText: '',
       newId: 3
     };
   },

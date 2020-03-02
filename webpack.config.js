@@ -9,7 +9,7 @@ module.exports = {
     hot: true,
     overlay: true
   },
-  entry: ['./src/app.js'],
+  entry: ['./src/index.js'],
   output: {
     path: path.resolve(__dirname, 'public')
   },
