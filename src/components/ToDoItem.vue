@@ -1,18 +1,27 @@
 <template>
   <li>
     <input
-      v-on:click="$emit('toggle')"
+      v-on:click="handleToggleCompleted(todo)"
       :checked="todo.completed"
       type="checkbox"
     />
     {{ todo.text }}
-    <button class="btn btn-danger" v-on:click="$emit('delete')" type="button">
+    <button
+      class="btn btn-danger"
+      v-on:click="handleDelete(todo.id)"
+      type="button"
+    >
       X
     </button>
   </li>
 </template>
 <script>
+import { mapActions } from 'vuex';
+
 export default {
-  props: ['todo']
+  props: ['todo'],
+  methods: {
+    ...mapActions(['handleToggleCompleted', 'handleDelete'])
+  }
 };
 </script>

@@ -8,7 +8,7 @@
           placeholder="E.g. feed the cat"
           aria-label="add-todo"
           aria-describedby="add-todo"
-          v-model="newTodoText"
+          v-model="$store.state.newTodoText"
         />
         <div class="input-group-append">
           <button class="btn btn-secondary" id="add-todo">
@@ -19,11 +19,9 @@
       <div class="input-group">
         <ul>
           <ToDoItem
-            v-for="(todo, index) in todos"
+            v-for="(todo, index) in $store.state.todos"
             :todo="todo"
             :key="todo.id"
-            v-on:delete="handleDelete(index)"
-            v-on:toggle="handleToggleCompleted(todo)"
           />
         </ul>
       </div>
@@ -31,48 +29,15 @@
   </form>
 </template>
 <script>
+import { mapActions } from 'vuex';
 import ToDoItem from './ToDoItem.vue';
 
 export default {
   components: {
     ToDoItem
   },
-  data() {
-    return {
-      todos: [
-        {
-          id: 1,
-          text: 'Go on a walk',
-          completed: true
-        },
-        {
-          id: 2,
-          text: 'Take out the trash',
-          completed: false
-        }
-      ],
-      newTodoText: '',
-      newId: 3
-    };
-  },
   methods: {
-    handleCreate() {
-      if (this.newTodoText.length > 0) {
-        this.todos.push({
-          id: this.newId++,
-          text: this.newTodoText,
-          completed: false
-        });
-
-        this.newTodoText = '';
-      }
-    },
-    handleDelete(index) {
-      this.todos.splice(index, 1);
-    },
-    handleToggleCompleted(todo) {
-      todo.completed = !todo.completed;
-    }
+    ...mapActions(['handleCreate'])
   }
 };
 </script>
