@@ -32,9 +32,7 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    handleCreate() {
-      let { newTodoId, todos } = this.state;
-
+    handleCreate({ newTodoId, todos }) {
       if (this.state.newTodoText.length > 0) {
         todos.push({
           id: newTodoId++,
