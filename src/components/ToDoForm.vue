@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleOnSubmit" action="">
+  <form @submit.prevent="handleCreate" action="">
     <div class="form-group">
       <div class="input-group">
         <input
@@ -22,6 +22,8 @@
             v-for="(todo, index) in todos"
             :todo="todo"
             :key="todo.id"
+            v-on:delete="handleDelete(index)"
+            v-on:toggle="handleToggleCompleted(todo)"
           />
         </ul>
       </div>
@@ -54,7 +56,7 @@ export default {
     };
   },
   methods: {
-    handleOnSubmit() {
+    handleCreate() {
       if (this.newTodoText.length > 0) {
         this.todos.push({
           id: this.newId++,
@@ -64,6 +66,12 @@ export default {
 
         this.newTodoText = '';
       }
+    },
+    handleDelete(index) {
+      this.todos.splice(index, 1);
+    },
+    handleToggleCompleted(todo) {
+      todo.completed = !todo.completed;
     }
   }
 };
